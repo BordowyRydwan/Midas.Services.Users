@@ -1,4 +1,4 @@
-# Transaction Service
+# Users Service
 A microservice which handles user information that are not sensitive by terms of security. Repo contains ASP.NET + EF Core solution with test suites. By default a database and the API are set to work in Docker containers.
 
 Following instructions are for Debian-based systems - but on Windows machines it should be similar or even simpler. 

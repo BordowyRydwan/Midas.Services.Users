@@ -2,6 +2,8 @@ using Application.Interfaces;
 using Application.Mappings;
 using Application.Middlewares;
 using Application.Services;
+using Application.Validators;
+using FluentValidation;
 using Infrastructure.Data;
 using Infrastructure.Interfaces;
 using Infrastructure.Repositories;
@@ -10,6 +12,9 @@ using Midas.Services;
 using NLog;
 using NLog.Web;
 using WebAPI.Extensions;
+using UserRegisterDto = Application.Dto.UserRegisterDto;
+using UserUpdateDto = Application.Dto.UserUpdateDto;
+using UserUpdateEmailDto = Application.Dto.UserUpdateEmailDto;
 
 namespace WebAPI;
 
@@ -97,6 +102,17 @@ public class Startup
 
         return this;
     }
+    
+    public Startup AddValidators()
+    {
+        _builder.Services.AddScoped<IValidator<UserRegisterDto>, UserRegisterDtoValidator>();
+        _builder.Services.AddScoped<IValidator<UserUpdateDto>, UserUpdateDtoValidator>();
+        _builder.Services.AddScoped<IValidator<UserUpdateEmailDto>, UserUpdateEmailDtoValidator>();
+
+        _logger.Debug("Validators were successfully added");
+        
+        return this;
+    }
 
     public Startup SetExternalServiceClients()
     {
@@ -112,6 +128,7 @@ public class Startup
         _builder.Services.AddHttpClient<IAuthorizationClient, AuthorizationClient>(httpClientDelegate)
             .ConfigurePrimaryHttpMessageHandler(() => httpClientHandler)
             .AddHeaderPropagation();
+        
 
         return this;
     }

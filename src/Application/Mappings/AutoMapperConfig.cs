@@ -12,10 +12,9 @@ public static class AutoMapperConfig
     {
         var result = new MapperConfigurationExpression();
 
-        result.CreateMap<Message, MessageDto>().ReverseMap();
-        result.CreateMap<ICollection<Message>, MessageListDto>()
-            .ForMember(dest => dest.Items, act => act.MapFrom(src => src))
-            .ForMember(dest => dest.Count, act => act.MapFrom(src => src.Count));
+        result.CreateMap<User, UserDto>().ReverseMap();
+        result.CreateMap<User, UserRegisterDto>().ReverseMap();
+        result.CreateMap<User, UserUpdateDto>().ReverseMap();
 
         return result;
     }

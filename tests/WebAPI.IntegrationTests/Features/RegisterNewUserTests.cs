@@ -22,7 +22,7 @@ public class RegisterNewUserTests
     public RegisterNewUserTests()
     {
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build();
-        var connectionString = configuration.GetConnectionString("AuthorizationConnection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         var dbOptions = new DbContextOptionsBuilder<UserDbContext>().UseSqlServer(connectionString).Options;
         var dbContext = new UserDbContext(dbOptions);
@@ -85,7 +85,7 @@ public class RegisterNewUserTests
     {
         var testInstance = new UserRegisterDto
         {
-            Email = $"test@@@gmail.com",
+            Email = "test@@@gmail.com",
             FirstName = "Lorem",
             LastName = "Ipsum",
             BirthDate = new DateTime(2002, 1, 20),

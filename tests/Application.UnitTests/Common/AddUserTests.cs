@@ -22,8 +22,7 @@ public class AddUserTests
             FirstName = "Test 1",
             LastName = "Test 1",
             BirthDate = DateTime.UtcNow,
-            RegisterDate = DateTime.UtcNow,
-            UserFamilyRoles = new List<UserFamilyRole>()
+            RegisterDate = DateTime.UtcNow
         }
     };
 
@@ -60,8 +59,7 @@ public class AddUserTests
                 FirstName = "Test 1",
                 LastName = "Test 1",
                 BirthDate = DateTime.UtcNow,
-                RegisterDate = DateTime.UtcNow,
-                UserFamilyRoles = new List<UserFamilyRole>()
+                RegisterDate = DateTime.UtcNow
             }
         };
     }

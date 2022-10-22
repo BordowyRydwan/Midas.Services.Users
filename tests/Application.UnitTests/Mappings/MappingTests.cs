@@ -25,9 +25,8 @@ public class MappingTests
     }
 
     [Test]
-    [TestCase(typeof(Message), typeof(MessageDto))]
-    [TestCase(typeof(MessageDto), typeof(Message))]
-    [TestCase(typeof(List<Message>), typeof(MessageListDto))]
+    [TestCase(typeof(User), typeof(UserDto))]
+    [TestCase(typeof(UserDto), typeof(User))]
     public void ShouldSupportMappingMessageObjects(Type source, Type destination)
     {
         var instance = GetInstanceOf(source);

@@ -3,9 +3,9 @@ using FluentValidation;
 
 namespace Application.Validators;
 
-public class UserUpdateDtoValidator : AbstractValidator<UserUpdateDto>
+public class UserRegisterDtoValidator : AbstractValidator<UserRegisterDto>
 {
-    public UserUpdateDtoValidator()
+    public UserRegisterDtoValidator()
     {
         RuleFor(x => x.Email).EmailAddress().MaximumLength(64);
         RuleFor(x => x.FirstName).MinimumLength(3).MaximumLength(64);

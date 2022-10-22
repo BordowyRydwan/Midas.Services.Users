@@ -6,5 +6,6 @@ new WebAPI.Startup(args)
     .SetMapperConfig()
     .AddInternalServices()
     .AddInternalRepositories()
+    .AddValidators()
     .SetExternalServiceClients()
     .Run();

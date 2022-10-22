@@ -8,5 +8,4 @@ public class UserDto
     public string LastName { get; set; }
     public DateTime RegisterDate { get; set; }
     public DateTime BirthDate { get; set; }
-    public UserFamilyRoleListDto UserFamilyRoles { get; set; }
 }

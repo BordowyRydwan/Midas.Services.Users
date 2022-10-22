@@ -422,3 +422,21 @@
 2022-10-01 20:35:14.6862 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=62, FilePath=/home/dawid/Pulpit/praca_inzynierska/Projekt/templates/Users/src/WebAPI/bin/Debug/net6.0/NLog.config
 2022-10-02 10:16:45.8749 Info AppDomain Shutting down. LogFactory closing...
 2022-10-02 10:16:45.8815 Info LogFactory has been closed.
+2022-10-22 10:17:48.0040 Info Message Template Auto Format enabled
+2022-10-22 10:17:48.0249 Info Loading assembly: NLog.Web.AspNetCore
+2022-10-22 10:17:48.0531 Info Adding target FileTarget(Name=allfile)
+2022-10-22 10:17:48.0531 Info Adding target FileTarget(Name=ownFile-web)
+2022-10-22 10:17:48.0531 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2022-10-22 10:17:48.0686 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=62, FilePath=/home/dawid/Pulpit/praca_inzynierska/Projekt/services/Users/src/WebAPI/bin/Debug/net6.0/NLog.config
+2022-10-22 10:17:48.2115 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=62, FilePath=/home/dawid/Pulpit/praca_inzynierska/Projekt/services/Users/src/WebAPI/bin/Debug/net6.0/NLog.config
+2022-10-22 10:17:48.7994 Info AppDomain Shutting down. LogFactory closing...
+2022-10-22 10:17:48.8054 Info LogFactory has been closed.
+2022-10-22 10:20:40.2023 Info Message Template Auto Format enabled
+2022-10-22 10:20:40.2231 Info Loading assembly: NLog.Web.AspNetCore
+2022-10-22 10:20:40.2520 Info Adding target FileTarget(Name=allfile)
+2022-10-22 10:20:40.2520 Info Adding target FileTarget(Name=ownFile-web)
+2022-10-22 10:20:40.2520 Info Adding target ConsoleTarget(Name=lifetimeConsole)
+2022-10-22 10:20:40.2676 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=62, FilePath=/home/dawid/Pulpit/praca_inzynierska/Projekt/services/Users/src/WebAPI/bin/Debug/net6.0/NLog.config
+2022-10-22 10:20:40.4055 Info Validating config: TargetNames=allfile, lifetimeConsole, ownFile-web, ConfigItems=62, FilePath=/home/dawid/Pulpit/praca_inzynierska/Projekt/services/Users/src/WebAPI/bin/Debug/net6.0/NLog.config
+2022-10-22 10:20:41.9574 Info AppDomain Shutting down. LogFactory closing...
+2022-10-22 10:20:41.9727 Info LogFactory has been closed.

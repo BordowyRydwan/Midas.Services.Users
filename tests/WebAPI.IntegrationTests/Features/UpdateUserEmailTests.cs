@@ -25,13 +25,12 @@ public class UpdateUserEmailTests
     public UpdateUserEmailTests()
     {
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build();
-        var connectionString = configuration.GetConnectionString("AuthorizationConnection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         var dbOptions = new DbContextOptionsBuilder<UserDbContext>().UseSqlServer(connectionString).Options;
         var dbContext = new UserDbContext(dbOptions);
         var repository = new UserRepository(dbContext);
         var mapper = AutoMapperConfig.Initialize();
-        var passwordHasher = new PasswordHasher<User>();
 
         var userService = new UserService(repository, mapper);
         var userLogger = Mock.Of<ILogger<UserController>>();

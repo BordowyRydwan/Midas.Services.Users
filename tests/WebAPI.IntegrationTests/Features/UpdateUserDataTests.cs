@@ -25,7 +25,7 @@ public class UpdateUserDataTests
     public UpdateUserDataTests()
     {
         var configuration = new ConfigurationBuilder().AddJsonFile("appsettings.Development.json").Build();
-        var connectionString = configuration.GetConnectionString("AuthorizationConnection");
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
 
         var dbOptions = new DbContextOptionsBuilder<UserDbContext>().UseSqlServer(connectionString).Options;
         var dbContext = new UserDbContext(dbOptions);

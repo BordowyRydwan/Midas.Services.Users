@@ -1,3 +1,5 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Application.Dto;
 using Application.Interfaces;
 using Domain.Exceptions;
@@ -97,6 +99,25 @@ public class UserController : ControllerBase
         }
 
         _logger.LogError("Could not find user with id: " + id);
+        return NotFound();
+    }
+    
+    [SwaggerOperation(Summary = "Get an active user")]
+    [HttpGet("", Name = nameof(GetActiveUser))]
+    [ProducesResponseType(typeof(UserDto), 200)]
+    public async Task<IActionResult> GetActiveUser()
+    {
+        var token = HttpContext.Request.Headers["Authorization"].ToString();
+        var handler = new JwtSecurityTokenHandler();
+        var userId = Convert.ToUInt64(handler.ReadJwtToken(token).Claims.Single(x => x.Type == ClaimTypes.NameIdentifier).Value);
+        var user = await _userService.GetUserById(userId).ConfigureAwait(false);
+
+        if (user is not null)
+        {
+            return Ok(user);
+        }
+
+        _logger.LogError("Could not find user with id: " + userId);
         return NotFound();
     }
 }

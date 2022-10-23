@@ -56,4 +56,12 @@ public class UserService : IUserService
 
         return dto;
     }
+    
+    public async Task<UserDto> GetUserById(ulong id)
+    {
+        var entity = await _userRepository.GetUserById(id).ConfigureAwait(false);
+        var dto = _mapper.Map<User, UserDto>(entity);
+
+        return dto;
+    }
 }

@@ -28,7 +28,6 @@ public class RegisterNewUserTests
         var dbContext = new UserDbContext(dbOptions);
         var repository = new UserRepository(dbContext);
         var mapper = AutoMapperConfig.Initialize();
-        var passwordHasher = new PasswordHasher<User>();
 
         var service = new UserService(repository, mapper);
         var logger = Mock.Of<ILogger<UserController>>();

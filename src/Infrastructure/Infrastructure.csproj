@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <OpenApiReference Include="OpenAPIs\auth.json" CodeGenerator="NSwagCSharp" Namespace="Midas.Services">
-      <SourceUri>https://localhost:7034/swagger/v1/swagger.json</SourceUri>
       <ClassName>AuthorizationClient</ClassName>
       <OutputPath>..\Clients\AuthorizationClient.cs</OutputPath>
       <Options>/GenerateClientInterfaces:true /UseBaseUrl:false</Options>

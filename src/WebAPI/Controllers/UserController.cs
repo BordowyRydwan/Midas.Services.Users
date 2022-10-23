@@ -8,7 +8,6 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace WebAPI.Controllers;
 
 [ApiController]
-[Authorize]
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
@@ -20,8 +19,7 @@ public class UserController : ControllerBase
         _logger = logger;
         _userService = UserService;
     }
-
-    [AllowAnonymous]
+    
     [SwaggerOperation(Summary = "Register new user")]
     [HttpPost("Register", Name = nameof(RegisterNewUser))]
     [ProducesResponseType(typeof(UserRegisterReturnDto), 200)]
@@ -83,6 +81,22 @@ public class UserController : ControllerBase
         }
 
         _logger.LogError("Could not find user with email: " + email);
+        return NotFound();
+    }
+    
+    [SwaggerOperation(Summary = "Get a user by id")]
+    [HttpGet("Id/{id}", Name = nameof(GetUserById))]
+    [ProducesResponseType(typeof(UserDto), 200)]
+    public async Task<IActionResult> GetUserById(ulong id)
+    {
+        var user = await _userService.GetUserById(id).ConfigureAwait(false);
+
+        if (user is not null)
+        {
+            return Ok(user);
+        }
+
+        _logger.LogError("Could not find user with id: " + id);
         return NotFound();
     }
 }

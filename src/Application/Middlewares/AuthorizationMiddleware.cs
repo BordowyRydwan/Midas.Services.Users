@@ -12,7 +12,7 @@ public class AuthorizationMiddleware
     private readonly RequestDelegate _next;
     private readonly IList<string> _omittedUrls = new List<string>
     {
-        "/api/User/Register"
+        "/api/User/Register", "/api/User/Email"
     };
     
     public AuthorizationMiddleware(RequestDelegate next)

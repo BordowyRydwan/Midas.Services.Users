@@ -139,13 +139,9 @@ public class Startup
     public void Run()
     {
         var app = _builder.Build();
-
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-
+        
+        app.UseSwagger();
+        app.UseSwaggerUI();
         app.UseHeaderPropagation();
         app.MigrateDatabase();
         app.UseHttpsRedirection();

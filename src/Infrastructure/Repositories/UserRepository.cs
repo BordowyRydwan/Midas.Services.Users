@@ -29,6 +29,10 @@ public class UserRepository : IUserRepository
             throw new UserException("Mail address already exists!");
         }
 
+        user.RegisterDate = DateTime.UtcNow;
+        user.Description = "";
+        user.ProfileImage = Guid.Empty;
+
         await _dbContext.AddAsync(user).ConfigureAwait(false);
         await _dbContext.SaveChangesAsync().ConfigureAwait(false);
         return user.Id;
@@ -58,6 +62,8 @@ public class UserRepository : IUserRepository
         entity.BirthDate = user.BirthDate;
         entity.FirstName = user.FirstName;
         entity.LastName = user.LastName;
+        entity.Description = user.Description;
+        entity.ProfileImage = user.ProfileImage;
 
         _dbContext.Users.Update(entity);
         await _dbContext.SaveChangesAsync().ConfigureAwait(false);

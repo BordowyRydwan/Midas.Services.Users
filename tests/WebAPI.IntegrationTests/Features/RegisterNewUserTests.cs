@@ -29,7 +29,7 @@ public class RegisterNewUserTests
         var repository = new UserRepository(dbContext);
         var mapper = AutoMapperConfig.Initialize();
 
-        var service = new UserService(repository, mapper);
+        var service = new UserService(repository, mapper, null);
         var logger = Mock.Of<ILogger<UserController>>();
 
         _userController = new UserController(logger, service);

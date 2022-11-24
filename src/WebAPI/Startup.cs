@@ -140,13 +140,13 @@ public class Startup
     {
         var app = _builder.Build();
         
+        app.UseCors("Open");
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHeaderPropagation();
         app.MigrateDatabase();
         app.UseHttpsRedirection();
         app.UseMiddleware<AuthorizationMiddleware>();
-        app.UseCors("Open");
         app.UseAuthentication();
         app.MapControllers();
         app.Run();

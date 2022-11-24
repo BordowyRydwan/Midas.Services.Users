@@ -32,7 +32,7 @@ public class UpdateUserEmailTests
         var repository = new UserRepository(dbContext);
         var mapper = AutoMapperConfig.Initialize();
 
-        var userService = new UserService(repository, mapper);
+        var userService = new UserService(repository, mapper, null);
         var userLogger = Mock.Of<ILogger<UserController>>();
         
         _userController = new UserController(userLogger, userService);

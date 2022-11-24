@@ -15,7 +15,8 @@ public static class AutoMapperConfig
         result.CreateMap<User, UserDto>().ReverseMap();
         result.CreateMap<User, UserRegisterDto>().ReverseMap();
         result.CreateMap<User, UserUpdateDto>().ReverseMap();
-
+        result.CreateMap<UserUpdateEmailDto, Midas.Services.UserUpdateEmailDto>().ReverseMap();
+        
         return result;
     }
 

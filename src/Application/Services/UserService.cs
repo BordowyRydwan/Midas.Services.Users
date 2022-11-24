@@ -4,6 +4,10 @@ using AutoMapper;
 using Domain.Entities;
 using Domain.Exceptions;
 using Infrastructure.Interfaces;
+using Midas.Services;
+using UserRegisterDto = Application.Dto.UserRegisterDto;
+using UserRegisterReturnDto = Application.Dto.UserRegisterReturnDto;
+using UserUpdateEmailDto = Application.Dto.UserUpdateEmailDto;
 
 
 namespace Application.Services;
@@ -12,11 +16,13 @@ public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
     private readonly IMapper _mapper;
+    private readonly IAuthorizationClient _authorizationClient;
 
-    public UserService(IUserRepository userRepository, IMapper mapper)
+    public UserService(IUserRepository userRepository, IMapper mapper, IAuthorizationClient authorizationClient)
     {
         _userRepository = userRepository;
         _mapper = mapper;
+        _authorizationClient = authorizationClient;
     }
     
     public async Task<UserRegisterReturnDto> RegisterNewUser(UserRegisterDto user)
@@ -46,7 +52,17 @@ public class UserService : IUserService
 
     public async Task UpdateUserEmail(UserUpdateEmailDto user)
     {
-        await _userRepository.UpdateUserEmail(user.OldEmail, user.NewEmail);
+        try
+        {
+            var mappedModel = _mapper.Map<UserUpdateEmailDto, Midas.Services.UserUpdateEmailDto>(user);
+
+            await _userRepository.UpdateUserEmail(user.OldEmail, user.NewEmail);
+            await _authorizationClient.UpdateUserEmailAsync(mappedModel);
+        }
+        catch (Exception e)
+        {
+            Console.Write(e);
+        }
     }
 
     public async Task<UserDto> GetUserByEmail(string email)

@@ -59,8 +59,13 @@ public class UserService : IUserService
             await _userRepository.UpdateUserEmail(user.OldEmail, user.NewEmail);
             await _authorizationClient.UpdateUserEmailAsync(mappedModel);
         }
+        catch (UserException e)
+        {
+            Console.Write(e);
+        }
         catch (Exception e)
         {
+            await _userRepository.UpdateUserEmail(user.NewEmail, user.OldEmail);
             Console.Write(e);
         }
     }

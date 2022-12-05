@@ -45,7 +45,7 @@ public class UserService : IUserService
     public async Task<bool> UpdateUserData(UserUpdateDto user)
     {
         var userEntity = _mapper.Map<UserUpdateDto, User>(user);
-        var updateResult = await _userRepository.UpdateUserData(userEntity);
+        var updateResult = await _userRepository.UpdateUserData(userEntity).ConfigureAwait(false);
 
         return updateResult;
     }
@@ -56,8 +56,8 @@ public class UserService : IUserService
         {
             var mappedModel = _mapper.Map<UserUpdateEmailDto, Midas.Services.UserUpdateEmailDto>(user);
 
-            await _userRepository.UpdateUserEmail(user.OldEmail, user.NewEmail);
-            await _authorizationClient.UpdateUserEmailAsync(mappedModel);
+            await _userRepository.UpdateUserEmail(user.OldEmail, user.NewEmail).ConfigureAwait(false);
+            await _authorizationClient.UpdateUserEmailAsync(mappedModel).ConfigureAwait(false);
         }
         catch (UserException e)
         {
@@ -65,7 +65,7 @@ public class UserService : IUserService
         }
         catch (Exception e)
         {
-            await _userRepository.UpdateUserEmail(user.NewEmail, user.OldEmail);
+            await _userRepository.UpdateUserEmail(user.NewEmail, user.OldEmail).ConfigureAwait(false);
             Console.Write(e);
         }
     }

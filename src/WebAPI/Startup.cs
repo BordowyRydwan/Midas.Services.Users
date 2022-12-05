@@ -62,7 +62,7 @@ public class Startup
 
         _builder.Services.AddDbContext<UserDbContext>(options =>
         {
-            options.UseSqlServer(connString).EnableSensitiveDataLogging();
+            options.UseSqlServer(connString, options => options.EnableRetryOnFailure()).EnableSensitiveDataLogging();
         });
 
         _logger.Debug("SQL connection was successfully added");
@@ -82,7 +82,7 @@ public class Startup
 
     public Startup AddInternalServices()
     {
-        _builder.Services.AddScoped<IUserService, UserService>();
+        _builder.Services.AddTransient<IUserService, UserService>();
         _logger.Debug("Internal services were successfully added");
 
         return this;
@@ -90,7 +90,7 @@ public class Startup
 
     public Startup AddInternalRepositories()
     {
-        _builder.Services.AddScoped<IUserRepository, UserRepository>();
+        _builder.Services.AddTransient<IUserRepository, UserRepository>();
         _logger.Debug("Internal repositories were successfully added");
 
         return this;

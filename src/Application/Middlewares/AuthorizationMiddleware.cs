@@ -2,8 +2,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using Application.Interfaces;
 using Microsoft.AspNetCore.Http;
-using Midas.Services;
-using Newtonsoft.Json;
 
 namespace Application.Middlewares;
 
@@ -20,7 +18,7 @@ public class AuthorizationMiddleware
         _next = next;
     }
 
-    public async Task Invoke(HttpContext context, IUserService authorizationService)
+    public async Task InvokeAsync(HttpContext context, IUserService authorizationService)
     {
         var isAuthorized = await CheckAuthorization(context, authorizationService).ConfigureAwait(false);
         var isOnOmittedUrlList = _omittedUrls.Any(x => context.Request.Path.StartsWithSegments(x));
@@ -28,7 +26,12 @@ public class AuthorizationMiddleware
         if (isAuthorized || isOnOmittedUrlList)
         {
             try { await _next(context); }
-            catch (Exception ex) { await HandleExceptionAsync(context, ex); }
+            catch (Exception ex) { await HandleExceptionAsync(context, ex).ConfigureAwait(false); }
+        }
+        else
+        {
+            var ex = new Exception("Could not authorize user");
+            await HandleExceptionAsync(context, ex).ConfigureAwait(false);
         }
     }
 
@@ -54,6 +57,6 @@ public class AuthorizationMiddleware
         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
         context.Response.ContentType = "application/json";
         
-        await context.Response.WriteAsync(ex.Message + "\n\n" + ex.StackTrace);
+        await context.Response.WriteAsync(ex.Message + "\n\n" + ex.StackTrace).ConfigureAwait(false);
     }
 }

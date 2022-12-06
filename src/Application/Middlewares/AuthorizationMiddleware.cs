@@ -25,7 +25,7 @@ public class AuthorizationMiddleware
 
         if (isAuthorized || isOnOmittedUrlList)
         {
-            try { await _next(context); }
+            try { await _next(context).ConfigureAwait(false); }
             catch (Exception ex) { await HandleExceptionAsync(context, ex).ConfigureAwait(false); }
         }
         else

@@ -10,6 +10,8 @@ public static class MigrateDatabaseExtension
         var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
         var ctx = scope.ServiceProvider.GetRequiredService<UserDbContext>();
 
-        ctx.Database.EnsureCreated();
+        if (ctx.Database.GetPendingMigrations().Any()) {
+            ctx.Database.Migrate();
+        }
     }
 }

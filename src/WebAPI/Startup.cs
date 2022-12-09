@@ -82,7 +82,7 @@ public class Startup
 
     public Startup AddInternalServices()
     {
-        _builder.Services.AddTransient<IUserService, UserService>();
+        _builder.Services.AddScoped<IUserService, UserService>();
         _logger.Debug("Internal services were successfully added");
 
         return this;
@@ -90,7 +90,7 @@ public class Startup
 
     public Startup AddInternalRepositories()
     {
-        _builder.Services.AddTransient<IUserRepository, UserRepository>();
+        _builder.Services.AddScoped<IUserRepository, UserRepository>();
         _logger.Debug("Internal repositories were successfully added");
 
         return this;
@@ -122,15 +122,17 @@ public class Startup
     {
         var authServiceAddress = _builder.Configuration["ServiceAddresses:Authorization"];
         var httpClientDelegate = (Action<HttpClient>)(client => client.BaseAddress = new Uri(authServiceAddress));
-        var httpClientHandler = new HttpClientHandler
-        {
-            ClientCertificateOptions = ClientCertificateOption.Manual,
-            ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
-        };
-
+        
         _builder.Services.AddHeaderPropagation(o => o.Headers.Add("Authorization"));
         _builder.Services.AddHttpClient<IAuthorizationClient, AuthorizationClient>(httpClientDelegate)
-            .ConfigurePrimaryHttpMessageHandler(() => httpClientHandler)
+            .ConfigurePrimaryHttpMessageHandler(() =>
+            {
+                return new HttpClientHandler
+                {
+                    ClientCertificateOptions = ClientCertificateOption.Manual,
+                    ServerCertificateCustomValidationCallback = (httpRequestMessage, cert, cetChain, policyErrors) => true
+                };
+            })
             .AddHeaderPropagation();
 
         return this;
@@ -144,7 +146,7 @@ public class Startup
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHeaderPropagation();
-        app.MigrateDatabase();
+        //app.MigrateDatabase();
         app.UseHttpsRedirection();
         app.UseMiddleware<AuthorizationMiddleware>();
         app.UseAuthentication();

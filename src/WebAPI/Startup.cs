@@ -62,7 +62,7 @@ public class Startup
 
         _builder.Services.AddDbContext<UserDbContext>(options =>
         {
-            options.UseSqlServer(connString, options => options.EnableRetryOnFailure()).EnableSensitiveDataLogging();
+            options.UseSqlServer(connString).EnableSensitiveDataLogging();
         });
 
         _logger.Debug("SQL connection was successfully added");
@@ -146,7 +146,7 @@ public class Startup
         app.UseSwagger();
         app.UseSwaggerUI();
         app.UseHeaderPropagation();
-        //app.MigrateDatabase();
+        app.MigrateDatabase();
         app.UseHttpsRedirection();
         app.UseMiddleware<AuthorizationMiddleware>();
         app.UseAuthentication();

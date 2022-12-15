@@ -10,4 +10,9 @@ public class UserDbContext : DbContext
     public UserDbContext() { }
 
     public UserDbContext(DbContextOptions options) : base(options) { }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.HasDefaultSchema("user");
+    }
 }
